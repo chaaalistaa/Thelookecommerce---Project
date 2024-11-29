@@ -1,0 +1,54 @@
+#AgeofCustomer
+SELECT
+    CASE 
+        WHEN age BETWEEN 0 AND 12 THEN 'Children'
+        WHEN age BETWEEN 13 AND 19 THEN 'Teenagers'
+        WHEN age BETWEEN 20 AND 39 THEN 'Young Adults'
+        WHEN age BETWEEN 40 AND 59 THEN 'Middle-aged'
+        WHEN age >= 60 THEN 'Elderly'
+        ELSE 'Unknown'
+    END AS Age_Group,
+    COUNT(*) AS Total_User
+FROM `bigquery-public-data.thelook_ecommerce.users`
+GROUP BY 
+    CASE 
+        WHEN age BETWEEN 0 AND 12 THEN 'Children'
+        WHEN age BETWEEN 13 AND 19 THEN 'Teenagers'
+        WHEN age BETWEEN 20 AND 39 THEN 'Young Adults'
+        WHEN age BETWEEN 40 AND 59 THEN 'Middle-aged'
+        WHEN age >= 60 THEN 'Elderly'
+        ELSE 'Unknown'
+    END
+ORDER BY
+    Total_User DESC;
+
+#GenderofCustomer
+SELECT
+  gender,
+  COUNT(*)
+FROM `bigquery-public-data.thelook_ecommerce.users`
+GROUP BY
+  gender
+ORDER BY
+  gender DESC;
+
+#TotalUser/Country
+SELECT
+  country,
+  COUNT(*) AS Total_User
+FROM `bigquery-public-data.thelook_ecommerce.users`
+GROUP BY
+  country
+ORDER BY
+  Total_User DESC;
+
+#GrowthofUser
+SELECT 
+    EXTRACT(YEAR FROM created_at) AS year,
+    COUNT(*) AS Total_User,
+FROM 
+    `bigquery-public-data.thelook_ecommerce.users`
+GROUP BY 
+    year
+ORDER BY 
+   Total_User ASC;
